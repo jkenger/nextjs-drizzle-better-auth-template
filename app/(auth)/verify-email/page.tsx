@@ -27,9 +27,7 @@ function VerifyEmailContent() {
 
       try {
         await authClient.verifyEmail({
-          query: {
-            token: token, // Pass the token here
-          },
+          query: { token },
         });
         setStatus("success");
         setMessage("Email verified successfully! Redirecting to dashboard...");
