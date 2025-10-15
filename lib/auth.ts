@@ -8,6 +8,7 @@ export const auth = betterAuth({
     provider: "pg", // or "mysql", "sqlite"
     schema,
   }),
+  secret: process.env.BETTER_AUTH_SECRET || "fallback-secret-for-build",
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: false, // Set to true if you want to require email verification
