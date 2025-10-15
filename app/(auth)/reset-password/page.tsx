@@ -46,8 +46,8 @@ function ResetPasswordForm() {
       setTimeout(() => {
         router.push("/login");
       }, 2000);
-    } catch (err: any) {
-      setError(err?.message || "Failed to reset password. Link may have expired.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to reset password. Link may have expired.");
     } finally {
       setLoading(false);
     }

@@ -23,7 +23,7 @@ export default function LoginPage() {
         password,
       });
       router.push("/dashboard");
-    } catch (err) {
+    } catch {
       setError("Invalid email or password");
     } finally {
       setLoading(false);

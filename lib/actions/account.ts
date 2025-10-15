@@ -68,9 +68,11 @@ export async function changePassword(data: {
     });
 
     return { success: true };
-  } catch (error: any) {
+  } catch (error) {
     throw new Error(
-      error.message || "Failed to change password. Check your current password."
+      error instanceof Error
+        ? error.message
+        : "Failed to change password. Check your current password."
     );
   }
 }

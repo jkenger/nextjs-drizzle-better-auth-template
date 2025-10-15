@@ -10,29 +10,39 @@ function VerifyEmailContent() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
 
-  const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
+  const [status, setStatus] = useState<"loading" | "success" | "error">(
+    "loading"
+  );
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     async function verifyEmail() {
       if (!token) {
         setStatus("error");
-        setMessage("Invalid verification link. Please check your email or request a new verification link.");
+        setMessage(
+          "Invalid verification link. Please check your email or request a new verification link."
+        );
         return;
       }
 
       try {
         await authClient.verifyEmail({
-          token,
+          query: {
+            token: token, // Pass the token here
+          },
         });
         setStatus("success");
         setMessage("Email verified successfully! Redirecting to dashboard...");
         setTimeout(() => {
           router.push("/dashboard");
         }, 2000);
-      } catch (error: any) {
+      } catch (error) {
         setStatus("error");
-        setMessage(error?.message || "Failed to verify email. Link may have expired.");
+        setMessage(
+          error instanceof Error
+            ? error.message
+            : "Failed to verify email. Link may have expired."
+        );
       }
     }
 
@@ -126,11 +136,13 @@ function VerifyEmailContent() {
 
 export default function VerifyEmailPage() {
   return (
-    <Suspense fallback={
-      <div className="flex min-h-screen items-center justify-center bg-gray-50">
-        <p className="text-gray-600">Loading...</p>
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-gray-50">
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      }
+    >
       <VerifyEmailContent />
     </Suspense>
   );

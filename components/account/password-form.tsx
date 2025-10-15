@@ -39,10 +39,10 @@ export default function PasswordForm() {
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
-    } catch (error: any) {
+    } catch (error) {
       setMessage({
         type: "error",
-        text: error.message || "Failed to change password",
+        text: error instanceof Error ? error.message : "Failed to change password",
       });
     } finally {
       setLoading(false);

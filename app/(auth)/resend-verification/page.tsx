@@ -24,10 +24,10 @@ export default function ResendVerificationPage() {
         text: "Verification email sent! Check your inbox.",
       });
       setEmail("");
-    } catch (err: any) {
+    } catch (err) {
       setMessage({
         type: "error",
-        text: err?.message || "Failed to send verification email. Please try again.",
+        text: err instanceof Error ? err.message : "Failed to send verification email. Please try again.",
       });
     } finally {
       setLoading(false);

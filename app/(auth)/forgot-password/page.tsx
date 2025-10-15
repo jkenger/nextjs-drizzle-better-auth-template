@@ -24,10 +24,10 @@ export default function ForgotPasswordPage() {
         text: "Password reset link sent! Check your email.",
       });
       setEmail("");
-    } catch (err: any) {
+    } catch (err) {
       setMessage({
         type: "error",
-        text: err?.message || "Failed to send reset link. Please try again.",
+        text: err instanceof Error ? err.message : "Failed to send reset link. Please try again.",
       });
     } finally {
       setLoading(false);

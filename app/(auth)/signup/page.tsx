@@ -46,8 +46,8 @@ export default function SignupPage() {
       setTimeout(() => {
         router.push("/dashboard");
       }, 3000);
-    } catch (err: any) {
-      setError(err?.message || "Failed to create account. Email may already exist.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to create account. Email may already exist.");
       setLoading(false);
     }
   }

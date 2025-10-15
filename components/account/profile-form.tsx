@@ -25,8 +25,8 @@ export default function ProfileForm({ user }: ProfileFormProps) {
     try {
       await updateProfile({ name, email });
       setMessage({ type: "success", text: "Profile updated successfully!" });
-    } catch (error: any) {
-      setMessage({ type: "error", text: error.message || "Failed to update profile" });
+    } catch (error) {
+      setMessage({ type: "error", text: error instanceof Error ? error.message : "Failed to update profile" });
     } finally {
       setLoading(false);
     }

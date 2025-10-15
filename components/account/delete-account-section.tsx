@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 import { deleteAccount } from "@/lib/actions/account";
-import { useRouter } from "next/navigation";
 
 export default function DeleteAccountSection() {
-  const router = useRouter();
   const [showConfirm, setShowConfirm] = useState(false);
   const [confirmText, setConfirmText] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,8 +22,10 @@ export default function DeleteAccountSection() {
       await deleteAccount();
       // Force a hard redirect to login page
       window.location.href = "/login";
-    } catch (err: any) {
-      setError(err.message || "Failed to delete account");
+    } catch (error) {
+      setError(
+        error instanceof Error ? error.message : "Failed to delete account"
+      );
       setLoading(false);
     }
   }
@@ -50,12 +50,16 @@ export default function DeleteAccountSection() {
           Are you sure you want to delete your account?
         </p>
         <p className="mt-1 text-sm text-red-700">
-          This action cannot be undone. All your data will be permanently deleted.
+          This action cannot be undone. All your data will be permanently
+          deleted.
         </p>
       </div>
 
       <div>
-        <label htmlFor="confirm" className="block text-sm font-medium text-red-900">
+        <label
+          htmlFor="confirm"
+          className="block text-sm font-medium text-red-900"
+        >
           Type &quot;DELETE&quot; to confirm
         </label>
         <input

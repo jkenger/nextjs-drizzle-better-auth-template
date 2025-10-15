@@ -2,7 +2,6 @@ import { db } from "@/db/drizzle";
 import * as schema from "@/db/schema";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { Resend } from "resend";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -12,7 +11,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: false, // Set to true if you want to require email verification
-    sendResetPassword: async ({ user, url }) => {
+    sendResetPassword: async () => {
       // Optional: Configure password reset emails
       // Uncomment and configure when you want to enable password reset emails
       // Note: Resend free tier only allows sending to your own email address
@@ -37,7 +36,7 @@ export const auth = betterAuth({
   emailVerification: {
     sendOnSignUp: true, // Set to true to send verification email on signup
     autoSignInAfterVerification: true,
-    sendVerificationEmail: async ({ user, url }) => {
+    sendVerificationEmail: async () => {
       // Optional: Configure email verification emails
       // Uncomment and configure when you want to enable email verification
       // Note: Resend free tier only allows sending to your own email address
