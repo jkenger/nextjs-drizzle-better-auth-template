@@ -1,5 +1,5 @@
 // Export all schemas from a single entry point
-export * from "@/db/schema/auth-schema";
+export * from "./auth-schema";
 
 // Future application schemas will be imported here:
 // export * from "./categories";
